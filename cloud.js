@@ -157,9 +157,101 @@ async function carregarDadosPrincipaisDrive(){
 
 function aplicarBackupCloud(data){
   const bruto=extrairBancoBackup(data);
-  const novo=normalizarBanco(bruto);
-  Object.keys(db).forEach(k=>delete db[k]); Object.assign(db,novo);
+  const novo=typeof normalizarBanco==="function" ? normalizarBanco(bruto) : bruto;
+
+  if(!novo || typeof novo!=="object" || !Array.isArray(novo.clientes)){
+    throw new Error("O backup não contém uma base válida do EmbrioGestor.");
+  }
+
+  Object.keys(db).forEach(k=>delete db[k]);
+  Object.assign(db,novo);
+
   salvarBanco();
+
+  try{
+    if(typeof render==="function"){
+      render();
+    }
+  }catch(e){
+    console.warn("Não foi possível atualizar a tela automaticamente após a importação.",e);
+  }
+}
+
+function abrirImportacaoBackup(){
+  const input=document.getElementById("cloudImportBackup");
+  if(input) input.click();
+}
+
+async function importarBackupArquivo(input){
+  const file=input?.files?.[0];
+  if(!file) return;
+
+  try{
+    const txt=await file.text();
+    const data=JSON.parse(txt);
+
+    const bruto=extrairBancoBackup(data);
+
+    if(!bruto || !Array.isArray(bruto.clientes)){
+      throw new Error("Arquivo de backup inválido.");
+    }
+
+    const qtdClientes=bruto.clientes?.length||0;
+    const qtdDoadoras=bruto.doadoras?.length||0;
+    const qtdProducoes=bruto.producoes?.length||0;
+
+    const ok=confirm(
+      `Importar este backup?\n\n`+
+      `Clientes: ${qtdClientes}\n`+
+      `Doadoras: ${qtdDoadoras}\n`+
+      `Produções: ${qtdProducoes}\n\n`+
+      `Os dados atuais deste aparelho serão substituídos.`
+    );
+
+    if(!ok) return;
+
+    try{
+      localStorage.setItem(
+        "embriogestor_backup_antes_importacao",
+        JSON.stringify(pacoteBackup())
+      );
+    }catch(e){
+      console.warn("Não foi possível criar backup local de emergência.",e);
+    }
+
+    aplicarBackupCloud(data);
+
+    localStorage.setItem(
+      "embriogestor_ultima_importacao",
+      new Date().toISOString()
+    );
+
+    alert("Backup importado com sucesso.");
+
+    paginaNuvem();
+
+    setTimeout(()=>{
+      cloudStatus(
+        "Backup importado e salvo neste aparelho.",
+        "ok"
+      );
+    },0);
+
+  }catch(e){
+
+    console.error(e);
+
+    alert(
+      e.message||
+      "Não foi possível importar o backup."
+    );
+
+  }finally{
+
+    if(input){
+      input.value="";
+    }
+  }
 }
 
 async function listarBackupsDrive(){
@@ -228,6 +320,37 @@ function paginaNuvem(){
         <div class="cloud-warning"><b>Importante:</b> esta versão faz sincronização por arquivo. Não é edição simultânea em tempo real. Antes de trocar de aparelho, envie os dados atuais; no outro aparelho, carregue a versão mais recente.</div>
       </section>
     </div>
+    <section class="card">
+      <div class="section-head">
+        <div>
+          <h3>Importar backup do aparelho</h3>
+          <p class="muted">
+            Use um arquivo JSON exportado anteriormente pelo EmbrioGestor
+            para restaurar clientes, doadoras, touros, estoques,
+            produções, transferências e demais cadastros.
+          </p>
+        </div>
+
+        <button
+          class="btn primary"
+          onclick="abrirImportacaoBackup()">
+          Importar arquivo de backup
+        </button>
+      </div>
+
+      <input
+        id="cloudImportBackup"
+        type="file"
+        accept=".json,application/json"
+        style="display:none"
+        onchange="importarBackupArquivo(this)"
+      >
+
+      <div class="cloud-warning">
+        Antes de importar, mantenha uma cópia de segurança.
+        A importação substitui os dados atuais deste aparelho.
+      </div>
+    </section>
     <section class="card">
       <div class="section-head"><div><h3>Backups no Google Drive</h3><p class="muted">As cópias ficam dentro da pasta ${cloudEsc(CLOUD_CFG.DRIVE_FOLDER_NAME||"EmbrioGestor")}.</p></div><button class="btn secondary" onclick="listarBackupsDrive()" ${driveToken?"":"disabled"}>Atualizar lista</button></div>
       <div id="cloudBackupList"><p>${driveToken?"Clique em Atualizar lista.":"Conecte o Google Drive para visualizar os backups."}</p></div>
