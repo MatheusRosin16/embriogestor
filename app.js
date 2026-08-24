@@ -380,6 +380,8 @@ const MENU = [
 
   ["nuvem", "Nuvem & Backup"]
 
+  ["sair", "Sair"]
+
 ];
 
 
@@ -705,6 +707,15 @@ function render() {
       else document.getElementById("content").innerHTML = `<div class="card"><p>Módulo de nuvem não carregado.</p></div>`;
       break;
 
+    case "sair":
+  if (typeof egSair === "function") {
+    egSair();
+  } else {
+    sessionStorage.removeItem("embriogestor_auth");
+    location.reload();
+  }
+  break;
+      
   }
 
 }
