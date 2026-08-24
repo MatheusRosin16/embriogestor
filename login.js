@@ -164,7 +164,55 @@ function egMostrarSenha() {
 
 function egTelaPrimeiroAcesso() {
 
-  document.body.innerHTML = `
+  document.body.innerHTML =
+       <style>
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100vw !important;
+        max-width: none !important;
+        min-height: 100vh !important;
+        display: block !important;
+        overflow: hidden !important;
+      }
+
+      .eg-login-page {
+        position: fixed !important;
+        z-index: 999999 !important;
+        top: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: none !important;
+
+        margin: 0 !important;
+        padding: 20px !important;
+        box-sizing: border-box !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        background: linear-gradient(
+          135deg,
+          #173f61 0%,
+          #1d527d 45%,
+          #347fbd 100%
+        ) !important;
+      }
+
+      .eg-login-card {
+        position: relative !important;
+        width: min(480px, calc(100vw - 40px)) !important;
+        max-width: 480px !important;
+        margin: auto !important;
+        box-sizing: border-box !important;
+      }
+    </style>
+       `
     <div class="eg-login-page">
 
       <div class="eg-login-card">
