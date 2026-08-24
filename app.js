@@ -378,7 +378,7 @@ const MENU = [
 
   ["relatorios", "Relatórios por Cliente"],
 
-  ["nuvem", "Nuvem & Backup"]
+  ["nuvem", "Nuvem & Backup"],
 
   ["sair", "Sair"]
 
