@@ -376,7 +376,9 @@ const MENU = [
 
   ["transferencias", "Transferência de Embriões"],
 
-  ["relatorios", "Relatórios por Cliente"]
+  ["relatorios", "Relatórios por Cliente"],
+
+  ["nuvem", "Nuvem & Backup"]
 
 ];
 
