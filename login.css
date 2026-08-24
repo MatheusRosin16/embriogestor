@@ -353,3 +353,26 @@ html, body {
     text-align: center;
   }
 }
+/* Correção de posicionamento da tela de login */
+
+body:has(.eg-login-page) {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+
+body:has(.eg-login-page) .eg-login-page {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  max-width: none !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
