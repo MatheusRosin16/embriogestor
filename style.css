@@ -1664,3 +1664,233 @@ input[type="number"] { min-width: 110px; }
 .cloud-backup-table{display:grid;gap:8px}.cloud-backup-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--border,#e3e8ee);border-radius:10px}.cloud-backup-row small{display:block;color:#667085;margin-top:3px}
 .section-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.muted{color:#667085}.btn:disabled{opacity:.5;cursor:not-allowed}
 @media(max-width:800px){.cloud-grid{grid-template-columns:1fr}.cloud-backup-row{align-items:flex-start;flex-direction:column}.cloud-backup-row .btn{width:100%}.section-head{flex-direction:column}.section-head .btn{width:100%}}
+
+/* ============================================================
+   EmbrioGestor - Tela de Login
+   ============================================================ */
+
+.eg-login-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px 20px 90px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(25,67,102,.82) 0%,
+      rgba(38,111,176,.38) 34%,
+      rgba(255,255,255,.18) 58%,
+      rgba(255,255,255,.05) 100%
+    ),
+    url("login-bg.jpg") center/cover no-repeat;
+  position:relative;
+}
+
+.eg-login-card{
+  width:min(560px,100%);
+  background:rgba(255,255,255,.94);
+  border:1px solid rgba(255,255,255,.65);
+  border-radius:26px;
+  box-shadow:0 24px 60px rgba(8,40,70,.28);
+  backdrop-filter:blur(10px);
+  padding:36px;
+}
+
+.eg-login-brand{
+  text-align:center;
+  margin-bottom:26px;
+}
+
+.eg-login-brand img{
+  width:92px;
+  height:auto;
+  margin-bottom:10px;
+}
+
+.eg-login-brand h1{
+  margin:0;
+  font-size:38px;
+  color:#173b5c;
+  font-weight:800;
+}
+
+.eg-login-brand p{
+  margin:6px 0 0;
+  color:#5d6c7a;
+  font-size:14px;
+}
+
+.eg-login-card h2{
+  text-align:center;
+  color:#173b5c;
+  font-size:28px;
+  margin:10px 0 6px;
+}
+
+.eg-login-sub{
+  text-align:center;
+  color:#687785;
+  line-height:1.5;
+  margin-bottom:28px;
+}
+
+.eg-login-card label{
+  display:block;
+  margin:15px 0 7px;
+  font-weight:700;
+  font-size:13px;
+  color:#2f79bb;
+}
+
+.eg-login-card input{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #c8d8e6;
+  border-radius:12px;
+  padding:15px 16px;
+  font-size:16px;
+  background:#fff;
+  color:#173b5c;
+  outline:none;
+  transition:.2s;
+}
+
+.eg-login-card input:focus{
+  border-color:#347fbd;
+  box-shadow:0 0 0 4px rgba(52,127,189,.12);
+}
+
+.eg-password-wrap{
+  position:relative;
+}
+
+.eg-password-wrap input{
+  padding-right:55px;
+}
+
+.eg-eye{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  font-size:20px;
+  padding:8px;
+}
+
+.eg-login-button{
+  width:100%;
+  margin-top:24px;
+  border:0;
+  border-radius:12px;
+  padding:15px 18px;
+  font-size:17px;
+  font-weight:800;
+  color:#fff;
+  cursor:pointer;
+  background:linear-gradient(135deg,#327fbd,#245f98);
+  box-shadow:0 8px 20px rgba(36,95,152,.22);
+}
+
+.eg-login-button:hover{
+  filter:brightness(.97);
+}
+
+.eg-login-error{
+  display:none;
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:10px;
+  background:#fff1f1;
+  color:#a72d2d;
+  font-size:14px;
+}
+
+.eg-login-security{
+  margin-top:24px;
+  border:1px solid #d4e4f3;
+  background:#eef6fd;
+  border-radius:14px;
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  color:#526574;
+}
+
+.eg-login-security strong{
+  color:#2f79bb;
+}
+
+.eg-login-footer{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  min-height:68px;
+  display:grid;
+  grid-template-columns:1fr 1.4fr 1fr;
+  gap:20px;
+  align-items:center;
+  padding:12px 34px;
+  background:#173b5c;
+  color:#fff;
+  font-size:14px;
+}
+
+.eg-login-footer > div:nth-child(2){
+  text-align:center;
+}
+
+.eg-login-footer > div:last-child{
+  text-align:right;
+}
+
+.eg-login-footer strong{
+  display:block;
+  font-size:18px;
+}
+
+.eg-login-footer small{
+  opacity:.8;
+}
+
+@media (max-width:700px){
+
+  .eg-login-page{
+    align-items:flex-start;
+    padding:22px 14px 120px;
+  }
+
+  .eg-login-card{
+    padding:24px 18px;
+    border-radius:20px;
+  }
+
+  .eg-login-brand img{
+    width:74px;
+  }
+
+  .eg-login-brand h1{
+    font-size:30px;
+  }
+
+  .eg-login-card h2{
+    font-size:24px;
+  }
+
+  .eg-login-footer{
+    grid-template-columns:1fr;
+    text-align:center;
+    gap:4px;
+    padding:10px 16px;
+  }
+
+  .eg-login-footer > div:nth-child(2),
+  .eg-login-footer > div:last-child{
+    text-align:center;
+  }
+}
