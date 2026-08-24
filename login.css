@@ -352,7 +352,6 @@ html, body {
   .eg-login-footer > div:last-child {
     text-align: center;
   }
-}
 /* Correção de posicionamento da tela de login */
 
 body:has(.eg-login-page) {
@@ -375,4 +374,5 @@ body:has(.eg-login-page) .eg-login-page {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+}
 }
